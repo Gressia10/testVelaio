@@ -5,17 +5,35 @@
     <div class="modalbox movedown">
         <a (click)="hide()">X</a>
         <h2>{{data.title}}</h2>
-        <p>Nombre de la tarea:</p><input type="text" />
-        <p>Fecha limite:</p><input type="date" />
+        <p>Nombre de la tarea:</p><input [(ngModel)]="taskName" type="text" />
+        <p>Fecha limite:</p><input type="date" [(ngModel)]="taskDate" />
         <hr/>
         <p>Personas Asociadas</p> 
-        <select [(ngModel)]="userSelected">
-            <option *ngFor="let user of data.userArray;"
-                [ngValue]="user.id">{{user.name}}
-            </option>
-        </select>
+
+        <div *ngFor="let user of userData; let i = index" >
+            <div style="display: flex;">
+                <p>Usuario:{{user.name}}</p>
+                <button mat-raised-button (click)="deleteuser(i)" class="button-delete">Eliminar Persona</button>
+            </div>
+            
+
+            <p>Habilidades de {{user.name}}:</p>
+            <div *ngFor="let skill of user.skills; let indexSkill = index" style="display: flex;">
+                <p>{{skill}}</p> <button mat-raised-button class="button-delete" (click)="deleteSkillData(i, indexSkill)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+            </div>
+            <p *ngIf="errorModal == 3" class="error">El usuario debe tener una habilidad</p>
+            
+            <button mat-raised-button *ngIf="!showSkills2"(click)="addSkill(2)">Agregar Habilidad</button>
+            <button mat-raised-button *ngIf="showSkills2"(click)="addSkill(2)">Cancelar</button>
+
+            <div *ngIf="showSkills2">
+                <p>Nombre:</p><input type="text" [(ngModel)]="skillName2"/>
+                <button mat-raised-button (click)="addSkillDataUser(i)">Guardar Habilidad</button>
+            </div>
+
+            <hr/>
+        </div>
         
-        <button mat-raised-button >Eliminar Persona</button>
         <button mat-raised-button *ngIf="!showUser"(click)="addUser()">Agregar Persona</button>
         <button mat-raised-button *ngIf="showUser"(click)="addUser()">Cancelar</button>
 
@@ -23,22 +41,26 @@
             <p >Nombre Completo:</p><input [(ngModel)]="nameUser" type="text" />
             <p>Edad:</p><input [(ngModel)]="ageUser" type="number" />
             <button mat-raised-button (click)="addUserData()">Guardar Persona</button>
+            <p *ngIf="errorModal == 1" class="error">Ya el usuario se encuentra agregado</p>
+            <p *ngIf="errorModal == 2" class="error">Debe seleccionar una habilidad primero y el nombre debe tener mas de 5 caractares y ser mayor de 18</p>
         </div>
 
         <p>Habilidades</p>
-        <select [(ngModel)]="skillSelected">
-            <option *ngFor="let skill of data.skills;"
-                [ngValue]="skill.id">{{skill.name}}
-            </option>
-        </select>
-        <button mat-raised-button >Eliminar Habilidad</button>
-        <button mat-raised-button *ngIf="!showSkills"(click)="addSkill()">Agregar Habilidad</button>
-        <button mat-raised-button *ngIf="showSkills"(click)="addSkill()">Cancelar</button>
+        <div *ngFor="let skill of skills; let i = index" style="display: flex;">
+            <p class="text">{{skill}}</p> <button mat-raised-button class="button-delete" (click)="deleteSkill(i)" ><i class="fa-sharp fa-solid fa-trash"></i></button>
+        </div>
+        
+        <button mat-raised-button *ngIf="!showSkills"(click)="addSkill(1)">Agregar Habilidad</button>
+        <button mat-raised-button *ngIf="showSkills"(click)="addSkill(1)">Cancelar</button>
 
         <div *ngIf="showSkills">
-            <p>Nombre:</p><input type="text" />
-            <button mat-raised-button>Guardar Habilidad</button>
+            <p>Nombre:</p><input type="text" [(ngModel)]="skillName"/>
+            <button mat-raised-button (click)="addSkillData()">Guardar Habilidad</button>
         </div>
+        <hr/>
+        <button  mat-raised-button (click)="addTask()">Guardar tarea</button>
+        <p *ngIf="errorModal == 4" class="error">Complete todos los campos primero</p>
     </div>
+    
 </div>
 

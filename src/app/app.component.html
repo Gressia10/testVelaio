@@ -12,27 +12,23 @@
     <thead>
       <tr>
         <th>#</th>
-        <th>userId</th>
-        <th>Nombre</th>
-        <th>Edad</th>
+        <th>Usuarios</th>
         <th>Titulo</th>
-        <th>Status</th>
+        <th>Status <button (click)="orderByStatus()"><i class="fa-solid fa-bars"></i></button></th>
         <th>Fecha Limite</th>
+        <th>Accion</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let task of tasks; let i = index">
+      <tr *ngFor="let task of tasks; let indexTask = index">
         <td>
           {{task.id}}
         </td>
         <td>
-          {{task.userId}}
-        </td>
-        <td>
-          {{task.userName}}
-        </td>
-        <td>
-          {{task.age}}
+          <div style="margin-bottom: 5px;" *ngFor="let user of task.userData">
+            *{{user.name}}({{user.age}})
+            Habilidades:<p style="margin: 0;" *ngFor="let skill of user.skills">-{{skill}}</p>
+          </div>
         </td>
         <td style="text-align: center;">
           {{task.title}}
@@ -40,15 +36,27 @@
         <td>
           <div [ngSwitch]="task.completed">
             <span *ngSwitchCase="false">
-              <div>Inactivo</div>
+              <label class="switch">
+                <input type="checkbox" (click)="statusTask(indexTask)">
+                <span class="slider round"></span>
+              </label>
             </span>
             <span *ngSwitchCase="true">
-              <div>Activo</div>
+              <label class="switch">
+                <input type="checkbox" checked (click)="statusTask(indexTask)">
+                <span class="slider round"></span>
+              </label>
             </span>
           </div>
         </td>
         <td style="text-align: center;">
-          {{task.title}}
+          {{task.dateLimit}}
+        </td>
+        <td>
+          <div style="display: flex;">
+            <button mat-raised-button (click)="updateTask(indexTask)"><i class="fa-solid fa-pen-to-square"></i></button>
+            <button mat-raised-button (click)="deleteTask(indexTask)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+          </div>
         </td>
       </tr>
     </tbody>

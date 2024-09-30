@@ -9,15 +9,11 @@ export class TaskService {
 
   constructor() { }
 
-  user = new BehaviorSubject<any>({});
-  public modalOn = this.user.asObservable();
+  task = new BehaviorSubject<any>({});
+  public modalOn = this.task.asObservable();
 
-  addUser(data:any) {
-    this.user.next({ data: data});
-  }
-
-  deleteUser(data:any) {
-    this.user.next({ data: data});
+  addTask(data:any) {
+    this.task.next(data);
   }
 
   getTask() {
