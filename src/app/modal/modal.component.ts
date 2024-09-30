@@ -64,7 +64,9 @@ export class ModalComponent {
     if(this.data.type == 'edit'){
       this.taskName.value = this.data.data.title;
       this.taskDate.value = this.data.data.dateLimit;
-      this.userData = this.data.data.userData;
+      if(this.data.data.userData){
+        this.userData = JSON.parse(JSON.stringify(this.data.data.userData));
+      }
     }
   }
 
