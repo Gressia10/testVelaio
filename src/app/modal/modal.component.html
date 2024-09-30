@@ -1,12 +1,24 @@
-<!-- <div class="modal">
-    <p>modal works!</p>
-</div> -->
-<div id="modal1" class="modalmask">
-    <div class="modalbox movedown">
-        <a (click)="hide()">X</a>
-        <h2>{{data.title}}</h2>
-        <p>Nombre de la tarea:</p><input [(ngModel)]="taskName" type="text" />
-        <p>Fecha limite:</p><input type="date" [(ngModel)]="taskDate" />
+<div id="modal1" class="modalmask flex justify-center items-center">
+    <form  class="modalbox relative overflow-y-auto bg-stone-50 p-4 w-full max-w-lg max-h-full rounded-lg">
+        <div class="flex justify-between">
+            <h2 class="m-auto uppercase font-bold text-gray-800">{{data.title}}</h2>
+            <div class="my-auto">
+                <a class="cursor-pointer text-red-600 text-xl" (click)="hide()">X</a>
+            </div>
+        </div>
+        <mat-form-field class="w-full">
+            <mat-label>Titulo:</mat-label>
+            <input matInput [formControl]="taskName" type="text" />
+        </mat-form-field>
+        <p>Fecha limite:</p>
+        <mat-form-field>
+            <input matInput   [matDatepicker]="picker" [formControl]="taskDate"/>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <!-- <mat-hint>DD/MM/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="taskDate"></mat-datepicker-toggle>
+            <mat-datepicker #taskDate></mat-datepicker> -->
+        </mat-form-field>
         <hr/>
         <p>Personas Asociadas</p> 
 
@@ -19,7 +31,7 @@
 
             <p>Habilidades de {{user.name}}:</p>
             <div *ngFor="let skill of user.skills; let indexSkill = index" style="display: flex;">
-                <p>{{skill}}</p> <button mat-raised-button class="button-delete" (click)="deleteSkillData(i, indexSkill)"><i class="fa-sharp fa-solid fa-trash"></i></button>
+                <p>{{skill}}</p> <button  mat-raised-button class="button-delete" (click)="deleteSkillData(i, indexSkill)"><i class="fa-sharp fa-solid fa-trash"></i></button>
             </div>
             <p *ngIf="errorModal == 3" class="error">El usuario debe tener una habilidad</p>
             
@@ -27,19 +39,27 @@
             <button mat-raised-button *ngIf="showSkills2"(click)="addSkill(2)">Cancelar</button>
 
             <div *ngIf="showSkills2">
-                <p>Nombre:</p><input type="text" [(ngModel)]="skillName2"/>
+                <mat-form-field class="w-full">
+                    <mat-label>Nombre:</mat-label>
+                    <input matInput type="text" [formControl]="skillName2"/>
+                </mat-form-field>
                 <button mat-raised-button (click)="addSkillDataUser(i)">Guardar Habilidad</button>
             </div>
 
             <hr/>
         </div>
-        
-        <button mat-raised-button *ngIf="!showUser"(click)="addUser()">Agregar Persona</button>
+        <button mat-raised-button class="hover:bg-blue-600" *ngIf="!showUser"(click)="addUser()">Agregar Persona</button>
         <button mat-raised-button *ngIf="showUser"(click)="addUser()">Cancelar</button>
 
         <div *ngIf="showUser">
-            <p >Nombre Completo:</p><input [(ngModel)]="nameUser" type="text" />
-            <p>Edad:</p><input [(ngModel)]="ageUser" type="number" />
+            <mat-form-field class="w-full">
+                <mat-label>Nombre Completo:</mat-label>
+                <input matInput [formControl]="nameUser" type="text" />
+            </mat-form-field>
+            <mat-form-field class="w-full">
+                <mat-label>Edad:</mat-label>
+                <input matInput [formControl]="ageUser" type="number" />
+            </mat-form-field>
             <button mat-raised-button (click)="addUserData()">Guardar Persona</button>
             <p *ngIf="errorModal == 1" class="error">Ya el usuario se encuentra agregado</p>
             <p *ngIf="errorModal == 2" class="error">Debe seleccionar una habilidad primero y el nombre debe tener mas de 5 caractares y ser mayor de 18</p>
@@ -50,17 +70,22 @@
             <p class="text">{{skill}}</p> <button mat-raised-button class="button-delete" (click)="deleteSkill(i)" ><i class="fa-sharp fa-solid fa-trash"></i></button>
         </div>
         
-        <button mat-raised-button *ngIf="!showSkills"(click)="addSkill(1)">Agregar Habilidad</button>
+        <button mat-raised-button class="mb-3" *ngIf="!showSkills"(click)="addSkill(1)">Agregar Habilidad</button>
         <button mat-raised-button *ngIf="showSkills"(click)="addSkill(1)">Cancelar</button>
 
         <div *ngIf="showSkills">
-            <p>Nombre:</p><input type="text" [(ngModel)]="skillName"/>
+            <mat-form-field class="w-full">
+                <mat-label>Nombre:</mat-label>
+                <input matInput type="text" [formControl]="skillName"/>
+            </mat-form-field>
             <button mat-raised-button (click)="addSkillData()">Guardar Habilidad</button>
         </div>
-        <hr/>
-        <button  mat-raised-button (click)="addTask()">Guardar tarea</button>
+        <mat-divider class="pb-3"></mat-divider>
+        <div class="flex">
+            <button mat-raised-button class="ml-auto" (click)="addTask()">Guardar tarea</button>
+        </div>
         <p *ngIf="errorModal == 4" class="error">Complete todos los campos primero</p>
-    </div>
+    </form>
     
 </div>
 

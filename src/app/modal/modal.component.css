@@ -23,18 +23,8 @@
 
 
 /*Formato de la ventana*/
-.modalbox{
-    width: 400px;
-    position: relative;
-    padding: 5px 20px 13px 20px;
-    background: #fff;
-    border-radius:3px;
-}
 
-/*Movimientos*/
-.movedown {
-    margin: 0 auto;
-}
+
  
 .modalmask:target .resize{
     width:400px;

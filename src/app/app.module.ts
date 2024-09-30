@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 @NgModule({
   declarations: [
     AppComponent,
-    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -20,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,
     MatButtonModule,
     MatDialogModule,
-    FormsModule
+    FormsModule,
+    ModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

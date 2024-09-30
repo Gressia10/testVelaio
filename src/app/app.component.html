@@ -6,15 +6,19 @@
 </div>
 
 <!-- Content -->
-<div class="content" role="main" *ngIf="!loading">
+<div class="content overflow-x-auto" role="main" *ngIf="!loading">
 
-  <table class="footable table">
+  <table class="table-auto">
     <thead>
       <tr>
         <th>#</th>
         <th>Usuarios</th>
         <th>Titulo</th>
-        <th>Status <button (click)="orderByStatus()"><i class="fa-solid fa-bars"></i></button></th>
+        <th>
+          <div class="flex">
+            Status <button (click)="orderByStatus()"><i class="fa-solid fa-bars"></i></button>
+          </div>
+        </th>
         <th>Fecha Limite</th>
         <th>Accion</th>
       </tr>
