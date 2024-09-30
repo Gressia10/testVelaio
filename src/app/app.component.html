@@ -1,0 +1,67 @@
+
+
+<!-- Toolbar -->
+<div class="toolbar" role="banner">
+  <button mat-raised-button class="button" (click)="addTask()">Add Task</button>
+</div>
+
+<!-- Content -->
+<div class="content" role="main" *ngIf="!loading">
+
+  <table class="footable table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>userId</th>
+        <th>Nombre</th>
+        <th>Edad</th>
+        <th>Titulo</th>
+        <th>Status</th>
+        <th>Fecha Limite</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let task of tasks; let i = index">
+        <td>
+          {{task.id}}
+        </td>
+        <td>
+          {{task.userId}}
+        </td>
+        <td>
+          {{task.userName}}
+        </td>
+        <td>
+          {{task.age}}
+        </td>
+        <td style="text-align: center;">
+          {{task.title}}
+        </td>
+        <td>
+          <div [ngSwitch]="task.completed">
+            <span *ngSwitchCase="false">
+              <div>Inactivo</div>
+            </span>
+            <span *ngSwitchCase="true">
+              <div>Activo</div>
+            </span>
+          </div>
+        </td>
+        <td style="text-align: center;">
+          {{task.title}}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
+
+<div class="content" *ngIf="loading">
+  <div class="spinner">
+    <div class="bounce1"></div>
+    <div class="bounce2"></div>
+    <div class="bounce3"></div>
+  </div>
+</div>
+
+<router-outlet></router-outlet>
